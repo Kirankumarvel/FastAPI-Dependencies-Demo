@@ -54,6 +54,65 @@ fastapi-dependencies-demo/
 
 ---
 
+## 🎯 Step 7: Test Your Application
+
+Open your web browser and go to: [http://127.0.0.1:8000](http://127.0.0.1:8000)  
+✅ You should see a welcome message with links to all endpoints.
+
+Now go to the interactive documentation: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)  
+✅ You should see the beautiful Swagger UI with all your endpoints!
+
+---
+
+## 🎯 Step 8: Test the Endpoints
+
+**Test 1: Basic Dependency**  
+Go to [http://127.0.0.1:8000/items/?skip=5&limit=3](http://127.0.0.1:8000/items/?skip=5&limit=3)  
+You should see a JSON response with items.
+
+**Test 2: Class-based Dependency**  
+Go to [http://127.0.0.1:8000/products/?skip=2&limit=4](http://127.0.0.1:8000/products/?skip=2&limit=4)  
+You should see a products response.
+
+**Test 3: Secure Endpoint**  
+Go to [http://127.0.0.1:8000/secure-data/](http://127.0.0.1:8000/secure-data/)  
+It should work automatically (the API key logic is simplified for demo).
+
+**Test 4: Nested Dependencies**  
+Go to [http://127.0.0.1:8000/user-stats/](http://127.0.0.1:8000/user-stats/)  
+Check your command prompt - you should see the print messages!
+
+---
+
+## 🎯 Step 9: Use Interactive Documentation
+
+Go to [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+
+- Click on any endpoint (like "GET /items/")
+- Click "Try it out"
+- Enter values for skip and limit
+- Click "Execute"
+- See the live results!
+
+---
+
+## 🎁 Bonus: Quick Test Commands
+
+You can also test with curl (in a new command prompt window):
+
+```bash
+# Test items endpoint
+curl "http://127.0.0.1:8000/items/?skip=2&limit=3"
+
+# Test users endpoint  
+curl "http://127.0.0.1:8000/users/?skip=1&limit=2"
+
+# Test secure data
+curl "http://127.0.0.1:8000/secure-data/"
+```
+
+---
+
 ## 🎯 Key Concepts Demonstrated
 
 ### 1. Basic Function Dependency
@@ -174,16 +233,35 @@ curl -H "X-API-Key: secret-key-123" http://127.0.0.1:8000/secure-data/
 
 ---
 
-## 🚨 Common Issues & Solutions
+## 🚨 Troubleshooting
 
-### Issue: `Depends()` not working
-- **Solution:** Ensure you're importing `Depends` from `fastapi` and using it as a default parameter value.
+- **ModuleNotFoundError: No module named 'fastapi'**  
+  Your virtual environment isn't activated. Run:  
+  `venv\Scripts\activate` (Windows) or `source venv/bin/activate` (Mac/Linux)
 
-### Issue: Dependency parameters not showing in docs
-- **Solution:** Make sure your dependency function uses type hints for all parameters.
+- **Address already in use**  
+  Another program is using port 8000. Run:  
+  `uvicorn app.main:app --reload --port 8001`  
+  and go to [http://127.0.0.1:8001](http://127.0.0.1:8001)
 
-### Issue: Circular dependencies
-- **Solution:** Restructure your code to avoid circular imports between dependencies.
+- **File not found errors**  
+  Make sure you're in the correct folder: `fastapi-dependencies-demo`  
+  Check that you have the `app` folder with `__init__.py` and `main.py` files.
+
+---
+
+## 🎉 Congratulations!
+
+You've successfully created and run a FastAPI application with dependencies! The `(venv)` in your command prompt means everything is working correctly.
+
+- To stop the server, press **CTRL+C** in the command prompt where it's running.
+- To start it again later:
+  - Navigate to your project folder
+  - Activate virtual environment:  
+    `venv\Scripts\activate` (Windows) or `source venv/bin/activate` (Mac/Linux)
+  - Run: `uvicorn app.main:app --reload`
+
+You now have a fully functional API demonstrating FastAPI's powerful dependency injection system! 🚀
 
 ---
 
@@ -196,5 +274,3 @@ curl -H "X-API-Key: secret-key-123" http://127.0.0.1:8000/secure-data/
 - Add caching dependencies
 
 Explore the official [FastAPI Dependencies Documentation](https://fastapi.tiangolo.com/tutorial/dependencies/) for more advanced patterns!
-
----
